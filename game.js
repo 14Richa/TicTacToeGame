@@ -11,6 +11,7 @@ function printx(number)
         checksign();
         disp.innerHTML= "<center>" + sign + " Turn " + "</center>" ;
         winner();
+        if( winner() == 0 ) checkDraw();
     }
 }
 
@@ -32,6 +33,25 @@ function checkmove(a,b,c)
 	return true;
 	else return false;
 }
+function clear()
+{
+    //Clears the board.
+    for(let i = 1; i <= 9; i++)
+    {
+       document.getElementById("r" + i).innerHTML = "";
+    }
+}
+
+function checkDraw()
+{
+    for (var i = 1; i <= 9; i++) {
+        if(getbox(i) == "") return (0);
+    }
+    disp.innerHTML= "<center>" + "Draw" + "</center>";
+    clear();
+    return(1);
+
+}
 
 function winner() {
     if( checkmove(1,2,3) || checkmove(4,5,6) || checkmove(7,8,9) ||
@@ -41,9 +61,8 @@ function winner() {
         if(sign == "X") sign = "O";
         else sign = "X";
         disp.innerHTML = "<center>" + sign + " Wins " + "</center>";
-        for(let i = 1; i <= 9; i++)
-        {
-           document.getElementById("r" + i).innerHTML = "";
-        }
-    }   
+        clear();
+        return(1);
+    }
+    return(0);   
 }
